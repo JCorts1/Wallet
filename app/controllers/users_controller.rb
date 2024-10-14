@@ -1,7 +1,16 @@
 class UsersController < ApplicationController
   def create
-    render json: { message: "User was succesfully created"}
+    @user = User.create(user_params)
+    if @user.save
+      render json: @user.as_json
+    else
+      render json: { message: "Issue saving user", errors: @user.errors.full_messages }
+    end
   end
+
+    def index
+      render json: { users: User.all.map(&:as_json) }
+    end
 
   private
   def user_params
