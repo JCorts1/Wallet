@@ -8,11 +8,12 @@ class UsersController < ApplicationController
     end
   end
 
-    def index
-      render json: { users: User.all.map(&:as_json) }
-    end
+  def index
+    render json: { users: User.all.map(&:as_json) }
+  end
 
   private
+
   def user_params
     params.require(:user).permit(:email, :password, :first_name, :last_name, :username)
   end
